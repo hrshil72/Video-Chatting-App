@@ -1,42 +1,63 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { useSocket } from "../../context/SocketContext";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const [name, setName] = useState("");
   const [id, setId] = useState("");
 
-  const handleSubmit1 = (e) => {
-    e.preventDefault();
-    console.log(name);
-  };
-  const handleSubmit2 = (e) => {
-    e.preventDefault();
-    console.log(id);
-  };
+  const socket = useSocket();
+
+  const navigate = useNavigate();
+
+  const handleSubmit = useCallback(
+    (e) => {
+      {
+        e.preventDefault();
+        socket.emit("roomCreateJoin", { name, id });
+        setName("");
+        setId("");
+      }
+    },
+    [name, id, socket]
+  );
+
+  const handleJoinRoom = useCallback(
+    (data) => {
+      const { name, id } = data;
+      console.log(name, id);
+      navigate(`/room/${id}`);
+    },
+    [navigate]
+  );
+
+  useEffect(() => {
+    socket.on("roomCreateJoin", handleJoinRoom);
+
+    return () => {
+      socket.off("roomCreateJoin", handleJoinRoom);
+    };
+  }, [socket, handleJoinRoom]);
 
   return (
     <div className="container">
       <h1 className="app-name">Let's Hinge</h1>
 
-      <form className="form" onSubmit={handleSubmit1}>
+      <form className="form" onSubmit={handleSubmit}>
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
           type="text"
           placeholder="Display Name"
         />
-        <button className="btn-1" type="submit">
-          Create Call
-        </button>
-      </form>
-      <form className="form" onSubmit={handleSubmit2}>
         <input
           value={id}
           onChange={(e) => setId(e.target.value)}
           type="text"
           placeholder="Call ID"
         />
-        <button className="btn-2" type="submit">
-          Join Call
+        <button className="btn-1" type="submit">
+          Join/Create Call
         </button>
       </form>
     </div>
