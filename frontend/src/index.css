@@ -87,3 +87,67 @@ input::-webkit-input-placeholder {
   color: #aa959c;
   cursor: pointer;
 }
+
+.chatPage {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.chat-heading {
+  color: #db7093;
+  font-size: 50px;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 40px;
+}
+
+.chat-status {
+  color: white;
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.call-btn {
+  margin-top: 20px;
+  background-color: #af5a76;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+.videoContainer {
+  display: flex;
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.stream-btn {
+  margin-top: 20px;
+  background-color: #af5a76;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  padding: 10px 20px;
+}
