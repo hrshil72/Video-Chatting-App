@@ -15,15 +15,7 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  socket.emit("me", socket.id);
-
-  socket.on("callUser", ({ userToCall, signalData, from, name }) => {
-    io.to(userToCall).emit("callUser", { signal: signalData, from, name });
-  });
-
-  socket.on("answerCall", (data) => {
-    io.to(data.to).emit("callAccepted", data.signal);
-  });
+  console.log("Socket connected");
 });
 
 server.listen(PORT, () => {

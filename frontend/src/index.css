@@ -36,18 +36,54 @@ body {
   color: #db7093;
 }
 
-.wrapper {
-  margin-top: 10px;
+.form {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  margin-top: 20px;
 }
 
-.textfield {
-  color: white !important;
+input {
+  padding: 10px 20px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid black;
+  color: white;
+  transition: all 0.4s linear;
 }
 
-.textfield-label {
-  color: #808080 !important;
+input:focus {
+  border-bottom: 1px solid #db7093;
+}
+
+input::-webkit-input-placeholder {
+  text-align: left;
+  font-size: 16px;
+}
+
+.btn-1 {
+  padding: 12px 40px;
+  background-color: #af5a76;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.btn-2 {
+  padding: 12px 40px;
+  background-color: #e5c9d2;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #aa959c;
+  cursor: pointer;
 }

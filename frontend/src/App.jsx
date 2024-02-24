@@ -1,23 +1,14 @@
 import React from "react";
-import Nav from "./components/HomePage/Nav";
+import { Route, Routes } from "react-router-dom";
+import HomePage from "./components/HomePage/HomePage";
+import ChatPage from "./components/ChatPage/ChatPage";
 
 const App = () => {
   return (
-    <div className="container">
-      <h1 className="app-name">Let's Hinge</h1>
-      <Nav
-        statusType="Display Name"
-        buttonType="Create Call"
-        bgColor="#AF5A76"
-        color="#141414"
-      />
-      <Nav
-        statusType="Call ID"
-        buttonType="Join Call"
-        bgColor="#E5C9D2"
-        color="#141414"
-      />
-    </div>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/chat" element={<ChatPage />} />
+    </Routes>
   );
 };
 
