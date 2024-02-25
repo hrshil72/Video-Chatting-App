@@ -25,7 +25,7 @@ const HomePage = () => {
   const handleJoinRoom = useCallback(
     (data) => {
       const { name, id } = data;
-      console.log(name, id);
+
       navigate(`/room/${id}`);
     },
     [navigate]

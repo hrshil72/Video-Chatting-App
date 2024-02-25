@@ -8,6 +8,8 @@ const ChatPage = () => {
   const navigate = useNavigate();
   const socket = useSocket();
   const [remoteSocketId, setRemoteSocketId] = useState(null);
+  const [senderName, setSenderName] = useState("");
+  const [receiverName, setReceiverName] = useState("");
   const [peerInstance, setPeerInstance] = useState(peer);
   const [myStream, setMyStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
@@ -15,35 +17,38 @@ const ChatPage = () => {
 
   const handleUserJoined = useCallback(({ name, id }) => {
     setRemoteSocketId(id);
+    setReceiverName(name);
   }, []);
 
   const handleCallUser = useCallback(async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
+        audio: true,
       });
       const offer = await peer.getOffer();
-      socket.emit("userCall", { to: remoteSocketId, offer });
+      socket.emit("userCall", { to: remoteSocketId, offer, name: senderName });
       setMyStream(stream);
       setCallStarted(true);
     } catch (error) {
       console.error("Error accessing media devices:", error.message);
     }
-  }, [remoteSocketId, socket]);
+  }, [remoteSocketId, socket, senderName]);
 
   const handleIncomingCall = useCallback(
-    async ({ from, offer }) => {
+    async ({ from, offer, name }) => {
       setRemoteSocketId(from);
       const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
+        audio: true,
       });
       setMyStream(stream);
-      console.log(`Incoming call`, from, offer);
+      setSenderName(name); // Assuming sender's name is received in the event
       const ans = await peer.getAnswer(offer);
-      socket.emit("callAccepted", { to: from, ans });
+      socket.emit("callAccepted", { to: from, ans, name: receiverName });
       setCallStarted(true);
     },
-    [socket]
+    [socket, receiverName]
   );
 
   const sendStreams = useCallback(() => {
@@ -60,9 +65,10 @@ const ChatPage = () => {
   const handleCallAccepted = useCallback(
     ({ from, ans }) => {
       peer.setLocalDescription(ans);
-      console.log("Call accepted");
+
       sendStreams();
       setCallStarted(true);
+      // Example usage of getStats
     },
     [sendStreams]
   );
@@ -94,7 +100,7 @@ const ChatPage = () => {
   useEffect(() => {
     peer.peer.addEventListener("track", async (ev) => {
       const remoteStream = ev.streams;
-      console.log("GOT TRACKS!!");
+
       setRemoteStream(remoteStream[0]);
     });
   }, []);
@@ -111,7 +117,6 @@ const ChatPage = () => {
 
       setMyStream(null);
       setPeerInstance(null);
-
       setRemoteSocketId(null);
       setMyStream(null);
       setRemoteStream(null);
@@ -162,16 +167,36 @@ const ChatPage = () => {
         <div>
           {myStream && (
             <>
-              <h1 style={{ color: "white" }}>My Stream</h1>
-              <ReactPlayer playing muted width="500px" url={myStream} />
+              <h1 style={{ color: "white", marginBottom: "20px" }}>
+                Sender's Video
+              </h1>
+              <div style={{ width: "800px", position: "relative" }}>
+                <ReactPlayer
+                  playing
+                  muted
+                  url={myStream}
+                  width="100%"
+                  height="auto"
+                />
+              </div>
             </>
           )}
         </div>
         <div>
           {remoteStream && (
             <>
-              <h1 style={{ color: "white" }}>Remote Stream</h1>
-              <ReactPlayer playing muted width="500px" url={remoteStream} />
+              <h1 style={{ color: "white", marginBottom: "20px" }}>
+                Receiver's Video
+              </h1>
+              <div style={{ width: "800px", position: "relative" }}>
+                <ReactPlayer
+                  playing
+                  muted
+                  url={remoteStream}
+                  width="100%"
+                  height="auto"
+                />
+              </div>
             </>
           )}
         </div>

@@ -130,6 +130,7 @@ input::-webkit-input-placeholder {
 .videoContainer {
   display: flex;
   text-align: center;
+  gap: 50px;
 }
 
 .buttons {
