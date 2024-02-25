@@ -164,26 +164,38 @@ const ChatPage = () => {
       </h4>
 
       <div className="videoContainer">
-        <div>
+        <div className="videoWrapper">
           {myStream && (
             <>
               <h1 style={{ color: "white", marginBottom: "20px" }}>
-                Sender's Video
+                My Stream
               </h1>
-              <div style={{ width: "800px", position: "relative" }}>
-                <ReactPlayer playing url={myStream} width="800px" />
+              <div className="playerWrapper">
+                <ReactPlayer
+                  playing
+                  muted
+                  url={myStream}
+                  width="100%"
+                  height="100%"
+                />
               </div>
             </>
           )}
         </div>
-        <div>
+        <div className="videoWrapper">
           {remoteStream && (
             <>
               <h1 style={{ color: "white", marginBottom: "20px" }}>
-                Receiver's Video
+                Remote Stream
               </h1>
-              <div style={{ width: "800px", position: "relative" }}>
-                <ReactPlayer playing url={remoteStream} width="800px" />
+              <div className="playerWrapper">
+                <ReactPlayer
+                  playing
+                  muted
+                  url={remoteStream}
+                  width="100%"
+                  height="100%"
+                />
               </div>
             </>
           )}

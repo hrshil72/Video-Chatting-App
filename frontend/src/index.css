@@ -152,3 +152,12 @@ input::-webkit-input-placeholder {
   cursor: pointer;
   padding: 10px 20px;
 }
+
+.videoWrapper {
+  width: 50%;
+}
+
+.playerWrapper {
+  position: relative;
+  width: 100%; /* 4:3 aspect ratio, adjust as needed */
+}
