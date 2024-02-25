@@ -171,7 +171,7 @@ const ChatPage = () => {
                 Sender's Video
               </h1>
               <div style={{ width: "800px", position: "relative" }}>
-                <ReactPlayer playing url={myStream} width="100%" />
+                <ReactPlayer playing url={myStream} width="800px" />
               </div>
             </>
           )}
@@ -183,7 +183,7 @@ const ChatPage = () => {
                 Receiver's Video
               </h1>
               <div style={{ width: "800px", position: "relative" }}>
-                <ReactPlayer playing url={remoteStream} width="100%" />
+                <ReactPlayer playing url={remoteStream} width="800px" />
               </div>
             </>
           )}
