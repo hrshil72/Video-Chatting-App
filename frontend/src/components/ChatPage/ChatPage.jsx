@@ -173,7 +173,6 @@ const ChatPage = () => {
               <div style={{ width: "800px", position: "relative" }}>
                 <ReactPlayer
                   playing
-                  muted
                   url={myStream}
                   width="100%"
                   height="auto"
@@ -191,7 +190,6 @@ const ChatPage = () => {
               <div style={{ width: "800px", position: "relative" }}>
                 <ReactPlayer
                   playing
-                  muted
                   url={remoteStream}
                   width="100%"
                   height="auto"
