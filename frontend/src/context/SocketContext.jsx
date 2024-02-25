@@ -10,7 +10,9 @@ export const useSocket = () => {
 
 export const SocketProvider = (props) => {
   const socket = useMemo(() =>
-    io("http://localhost:8080", { transports: ["websocket"] })
+    io("https://video-chatting-app-n8ga.onrender.com", {
+      transports: ["websocket"],
+    })
   );
 
   return (
