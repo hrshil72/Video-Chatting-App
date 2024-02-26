@@ -24,7 +24,6 @@ const ChatPage = () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
-        audio: true,
       });
       const offer = await peer.getOffer();
       socket.emit("userCall", { to: remoteSocketId, offer, name: senderName });
@@ -40,7 +39,6 @@ const ChatPage = () => {
       setRemoteSocketId(from);
       const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
-        audio: true,
       });
       setMyStream(stream);
       setSenderName(name); // Assuming sender's name is received in the event
@@ -192,7 +190,7 @@ const ChatPage = () => {
                 <ReactPlayer
                   playing
                   muted
-                  url={remoteStream}
+                  url={myStream}
                   width="100%"
                   height="100%"
                 />
